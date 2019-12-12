@@ -1,0 +1,4 @@
+motor.c:23:6:motor_init	8	static
+motor.c:34:6:set_motor_PWM	16	static
+motor.c:54:6:get_motor_speed	16	static
+motor.c:80:6:my_one_step	8	static

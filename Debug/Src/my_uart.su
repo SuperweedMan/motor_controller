@@ -1,0 +1,4 @@
+my_uart.c:16:6:my_uart_init	8	static
+my_uart.c:20:6:transfer_data	4	static
+my_uart.c:35:6:HAL_UART_RxHalfCpltCallback	24	static
+my_uart.c:44:6:HAL_UART_RxCpltCallback	24	static

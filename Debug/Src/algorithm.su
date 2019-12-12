@@ -1,0 +1,6 @@
+algorithm.c:12:6:decoupling	32	static
+algorithm.c:17:7:fliter	24	static
+algorithm.c:27:5:PID_Inc	40	static
+algorithm.c:37:5:saturation	32	static
+algorithm.c:52:5:PID_R_motor	32	static
+algorithm.c:77:5:PID_L_motor	32	static
