@@ -29,6 +29,7 @@ void motor_init(){
 	HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_4); //PWM
 	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_4,0);
 	__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,0);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
 }
 
 void set_motor_PWM(enum RightOrLeft side,int value){
@@ -78,6 +79,8 @@ void get_motor_speed(){
 //uint32_t counter;
 //uint32_t PWM=0;
 void my_one_step(){
+	static uint32_t wakeup_counter = 0;
+	int left_PWMvalue,right_PWMvalue;
 //	int PWMvalue;
 //	static uint32_t i = 0;
 	get_motor_speed();
@@ -86,11 +89,25 @@ void my_one_step(){
 //	if(i<2000){i++;}else{PWMvalue+=3000;}
 	static decoulpe_TypeDef decouple_speed;
 	decoupling(ForwardSpeed, RollSpeed, &decouple_speed);
-	set_motor_PWM(left,PID_L_motor(decouple_speed.Speed_L,speed_L));
-	set_motor_PWM(right,PID_R_motor(decouple_speed.Speed_R,speed_R));
+	left_PWMvalue = PID_L_motor(decouple_speed.Speed_L,speed_L);
+	right_PWMvalue = PID_R_motor(decouple_speed.Speed_R,speed_R);
+	set_motor_PWM(left,left_PWMvalue);
+	set_motor_PWM(right,right_PWMvalue);
+	if(left_PWMvalue <= 100 && left_PWMvalue>= -100 && right_PWMvalue <=100 && right_PWMvalue>= -100){
+		if(wakeup_counter > 100){
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
+		}else{
+			wakeup_counter++;
+		}
+	}else{
+		wakeup_counter=0;
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
+	}
 //	sprintf(data,"%2.4f\n",speed_L);
 //	HAL_UART_Transmit(&huart1, data, strlen(data), 0x05);
 
 
 }
+
+
 

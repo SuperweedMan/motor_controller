@@ -38,7 +38,7 @@ all: motor_control.elf secondary-outputs
 
 # Tool invocations
 motor_control.elf: $(OBJS) $(USER_OBJS) C:\Users\wyz\STM32CubeIDE\workspace_1.0.0\motor_control\STM32F103C8TX_FLASH.ld
-	arm-none-eabi-gcc -o "motor_control.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\wyz\STM32CubeIDE\workspace_1.0.0\motor_control\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="motor_control.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "motor_control.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\wyz\STM32CubeIDE\workspace_1.0.0\motor_control\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="motor_control.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

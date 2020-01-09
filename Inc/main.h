@@ -70,6 +70,8 @@ void Error_Handler(void);
 #define DirOfRight_GPIO_Port GPIOB
 #define DirOfLeft_Pin GPIO_PIN_15
 #define DirOfLeft_GPIO_Port GPIOB
+#define brake_Pin GPIO_PIN_8
+#define brake_GPIO_Port GPIOA
 #define PWMOfLeft_Pin GPIO_PIN_11
 #define PWMOfLeft_GPIO_Port GPIOA
 #define A_Right_Pin GPIO_PIN_6
