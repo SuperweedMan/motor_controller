@@ -93,16 +93,23 @@ void my_one_step(){
 	right_PWMvalue = PID_R_motor(decouple_speed.Speed_R,speed_R);
 	set_motor_PWM(left,left_PWMvalue);
 	set_motor_PWM(right,right_PWMvalue);
-	if(left_PWMvalue <= 100 && left_PWMvalue>= -100 && right_PWMvalue <=100 && right_PWMvalue>= -100){
-		if(wakeup_counter > 100){
+	if((ForwardSpeed >= -0.05)&&(ForwardSpeed<=0.05)&&(RollSpeed >=-0.05)&&(RollSpeed<=0.05)){
+		if(((speed_R>=-0.05)&&(speed_R<=0.05))||((speed_L>=-0.05)&&(speed_L<=0.05))){
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
-		}else{
-			wakeup_counter++;
 		}
 	}else{
-		wakeup_counter=0;
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
 	}
+//	if(left_PWMvalue <= 100 && left_PWMvalue>= -100 && right_PWMvalue <=100 && right_PWMvalue>= -100){
+//		if(wakeup_counter > 100){
+//			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
+//		}else{
+//			wakeup_counter++;
+//		}
+//	}else{
+//		wakeup_counter=0;
+//		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
+//	}
 //	sprintf(data,"%2.4f\n",speed_L);
 //	HAL_UART_Transmit(&huart1, data, strlen(data), 0x05);
 

@@ -51,7 +51,8 @@ int saturation(int r,int uplimit,int downlimit){
 
 int PID_R_motor(float r,float speed){
 	static Transfer1_3_Parameters transfer_data = {{0.04541},{1,17.74,292.9}};
-	static Final_Parameters Parameters_data = {5,15,1.5,0.005};
+//	static Final_Parameters Parameters_data = {5,15,1.5,0.005};
+	static Final_Parameters Parameters_data = {5,15,0.8,0.005};
 	float kpd = transfer_data.den[0]*Parameters_data.wo/(transfer_data.num[0]*Parameters_data.lam);
 	static Filer_TypeDef Filter_data;
 	static PID_IncTypeDef PID_data;
@@ -76,7 +77,8 @@ int PID_R_motor(float r,float speed){
 //extern UART_HandleTypeDef huart1;
 int PID_L_motor(float r,float speed){
 	static Transfer1_3_Parameters transfer_data = {{0.08475},{1,32.93,502.1}};
-	static Final_Parameters Parameters_data = {5,15,1.5,0.005};
+//	static Final_Parameters Parameters_data = {5,15,1.5,0.005};
+	static Final_Parameters Parameters_data = {5,15,0.8,0.005};
 	float kpd = transfer_data.den[0]*Parameters_data.wo/(transfer_data.num[0]*Parameters_data.lam);
 	static Filer_TypeDef Filter_data;
 	static PID_IncTypeDef PID_data;
