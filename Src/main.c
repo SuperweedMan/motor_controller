@@ -81,7 +81,8 @@ static void MX_USART1_UART_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	uint8_t data[11];
+	FloatToUnsignedChar ftuc;
   /* USER CODE END 1 */
   
 
@@ -118,6 +119,13 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	data[0]=0xed;data[10]=0xde;data[5]=0xaa;
+	ftuc.F32=x_position;
+	data[1]=ftuc.U8.low;data[2]=ftuc.U8.mlow;data[3]=ftuc.U8.mhigh;data[4]=ftuc.U8.high;
+	ftuc.F32=y_position;
+	data[6]=ftuc.U8.low;data[7]=ftuc.U8.mlow;data[8]=ftuc.U8.mhigh;data[9]=ftuc.U8.high;
+	HAL_UART_Transmit_DMA(&huart1, data, 11);
+	HAL_Delay(15);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

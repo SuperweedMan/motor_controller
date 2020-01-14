@@ -10,6 +10,7 @@
 #include "string.h"
 #include "stdio.h"
 #include "my_uart.h"
+#include "math.h"
 
 extern UART_HandleTypeDef huart1;
 extern TIM_HandleTypeDef htim2;
@@ -19,6 +20,8 @@ extern TIM_HandleTypeDef htim3;
 static int LeftValueOfPulseNum;
 static int RightValueOPulseNum;
 static float speed_R,speed_L;
+static float position_L,position_R;
+float x_position,y_position,theta;
 
 void motor_init(){
 	HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL);
@@ -71,8 +74,17 @@ void get_motor_speed(){
 	LeftValueOfPulseNum = CENTRAL_POINT-LeftValueOfPulseNum;
 	__HAL_TIM_SET_COUNTER(&htim3,CENTRAL_POINT);
 	__HAL_TIM_SET_COUNTER(&htim4,CENTRAL_POINT);
-	speed_R= ((float)RightValueOPulseNum)*200.0/2528.0*0.6283;
-	speed_L= ((float)LeftValueOfPulseNum)*200.0/1685.0*0.6283;
+	position_R = ((float)RightValueOPulseNum)/2528.0*0.6283;
+	position_L = ((float)LeftValueOfPulseNum)/1685.0*0.6283;
+//	speed_R= ((float)RightValueOPulseNum)*200.0/2528.0*0.6283;
+//	speed_L= ((float)LeftValueOfPulseNum)*200.0/1685.0*0.6283;
+	speed_R = position_R*200;
+	speed_L = position_L*200;
+	theta = theta+(-2.439024*position_L+2.439024*position_R);
+	float x = sin(theta);
+	float y = cos(theta);
+	x_position =x_position + x*(0.5*position_R+0.5*position_L);
+	y_position =y_position + y*(0.5*position_R+0.5*position_L);
 }
 
 //static uint8_t data[30];
@@ -93,8 +105,8 @@ void my_one_step(){
 	right_PWMvalue = PID_R_motor(decouple_speed.Speed_R,speed_R);
 	set_motor_PWM(left,left_PWMvalue);
 	set_motor_PWM(right,right_PWMvalue);
-	if((ForwardSpeed >= -0.05)&&(ForwardSpeed<=0.05)&&(RollSpeed >=-0.05)&&(RollSpeed<=0.05)){
-		if(((speed_R>=-0.05)&&(speed_R<=0.05))||((speed_L>=-0.05)&&(speed_L<=0.05))){
+	if((ForwardSpeed >= -0.03)&&(ForwardSpeed<=0.03)&&(RollSpeed >=-0.03)&&(RollSpeed<=0.03)){
+		if(((speed_R>=-0.03)&&(speed_R<=0.03))||((speed_L>=-0.03)&&(speed_L<=0.03))){
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
 		}
 	}else{

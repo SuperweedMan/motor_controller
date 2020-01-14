@@ -6,6 +6,7 @@
  */
 #include "main.h"
 #include "my_uart.h"
+#include "motor.h"
 
 extern UART_HandleTypeDef huart1;
 

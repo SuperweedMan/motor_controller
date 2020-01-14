@@ -23,7 +23,7 @@ Src/my_uart.o: ../Src/my_uart.c ../Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
- ../Inc/my_uart.h
+ ../Inc/my_uart.h ../Inc/motor.h ../Inc/main.h
 
 ../Inc/main.h:
 
@@ -76,3 +76,7 @@ Src/my_uart.o: ../Src/my_uart.c ../Inc/main.h \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
 
 ../Inc/my_uart.h:
+
+../Inc/motor.h:
+
+../Inc/main.h:
